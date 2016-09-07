@@ -7,6 +7,13 @@ Easiest is to import the project in IntelliJ IDEA and run it from there as then 
 ## Requirements
 
 - Java 8
+
+## Important
+
+The `Parser.java` class does a few assumptions that you may need to change to fit your WSDL/Service implementation, as this was written to target a specific Web Service.
+ 
+- First, any WSDL method/function ending with "Response" is treated as a response call. See line 233.
+- Second, any object name ending in "Enum" is treated as an Enum. See line 372.
  
 ## Compiling 
 
