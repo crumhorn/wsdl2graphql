@@ -12,8 +12,12 @@ To run it, simply run `java Main` as follows:
 
 ```java Main -i wsdlUrlOrFile -o outputFile.graphql```
  
-`-i` is the input file or URL
-`-o` is the output file of the generated schema. 
+`-i <inputFile>` is the input file or URL
+`-o <outputFile>` is the output file of the generated schema.
+ 
+ _You may need to inclue all the jars in the `./lib` classpath as part of the java command argument, as these are required_
+ 
+ _The IntelliJ IDEA project files are also included, so it may be even easier to run it from there if you have it, just add the launch parameters to the program arguments in the launcher_ 
 
 ## Modifying the Output
 
@@ -24,4 +28,5 @@ If you need to modify the template used to generate the output, see `resources/t
 _The output is usually not very "pretty", so I suggest opening the file in your favorite editor and run a javascript formatter on it._
 
 Enjoy!
+
 Emil Crumhorn
