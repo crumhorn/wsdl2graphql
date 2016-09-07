@@ -3,17 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.six_group.ssx.seni_gui_trading</groupId>
-    <artifactId>seni-gui-trading</artifactId>
+    <groupId>crumhorn</groupId>
+    <artifactId>wsdl2graphql</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0.0</version>
     <name>wsdl2graphql</name>
-    <!--	<parent>
-            <relativePath>../seni-gui-trading-parent-pom/pom.xml</relativePath>
-            <groupId>com.six_group.ssx.seni_gui_trading</groupId>
-            <artifactId>seni-gui-trading-parent-pom</artifactId>
-            <version>1.0.0.0</version>
-        </parent>-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
