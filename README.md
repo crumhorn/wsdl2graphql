@@ -36,6 +36,14 @@ _(You may need to inclue all the jars in the `./lib` classpath as part of the ja
 
 If you need to modify the template used to generate the output, see `resources/templates/schema.pebble`
 
+## Adding the missing methods
+
+As you will see in the output of the generated schema file, there are calls made to: 
+
+`db.querySOAP` and `db.querySOAPWithArgs(...)` which will require your own implementation to call the SOAP backend. For our implementation we used the following NodeJS module:
+
+https://www.npmjs.com/package/soap
+
 ## Notes
 
 _The output is usually not very "pretty", so I suggest opening the file in your favorite editor and run a javascript formatter on it._
