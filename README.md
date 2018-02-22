@@ -49,6 +49,8 @@ Option Details:
 
 If you need to modify the template used to generate the output, see `resources/templates/schema.pebble`
 
+For modifying the Type Schema output, change the `resources/templates/typeSchema.pebble` file.
+
 ## Adding the missing methods
 
 As you will see in the output of the generated schema file, there are calls made to: 
@@ -60,6 +62,74 @@ https://www.npmjs.com/package/soap
 ## Notes
 
 _The output is usually not very "pretty", so I suggest opening the file in your favorite editor and run a javascript formatter on it._
+
+## GraphQL queries to SOAP conversion in NodeJS
+
+Just in case someone gets stuck on this, this is the JavaScript (on the server-side (NodeJS in my case)) that I wrote to pass in a GraphQL query "Json" to convert it over to a valid SOAP WSDL request, as SOAP needs multi-value arrays to be repeated many times. I believe the documentation of it should speak for itself.
+
+```javascript
+/**
+ * This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this:
+ *
+ * findByCriteria(arg0: "{currencyCodes:[CHF,USD],maxResults:1500}") {...}
+ *
+ * example (copy and paste into GraphiQL):
+ *    findByCriteria(arg0:"{doAddPublicationData:true,doAddStaticData:true,fromDate:\"2017-01-11T00:00:00+01:00\",maxResults:1500}") {
+ *
+ * Is turned into
+ *
+ * arg0 {
+ *      // all booleans etc are standard per the query, it's the array that's crucial
+ *      "currencyCodes":[CHF,USD]
+ *      "maxResults":1500
+ * }
+ *
+ * Which in turn creates the correct SOAP Body:
+ * <soap:Body>
+ *     <tns:findByCriteria xmlns:tns="http://xxx.yyy.com/">
+ *         <arg0>
+ *             <currencyCodes>CHF</currencyCodes>
+ *             <currencyCodes>USD</currencyCodes>
+ *             <maxResults>1500</maxResults>
+ *         </arg0>
+ *     </tns:findByCriteria>
+ * </soap:Body>
+ *
+ * Do note that stuff like setXXX(arg0:590,arg1:"OK") must also work here and be translated into nothing unless the key has {} inside the text
+ *
+ * @param params arguments
+ * @returns {{}}
+ */
+function fixParams(params) {
+    try {
+        // put quotes around keys regex, but not for commas inside quotes, see here: https://stackoverflow.com/questions/21105360/regex-find-comma-not-inside-quotes
+        // test it here: https://regex101.com/r/FcZVke/8
+        let objKeysRegex = /({|(?!\B"[^"]*),(?![^"]*"\B))(?:\s*)(?:')?([A-Za-z_$\.][A-Za-z0-9_ \-\.$]*)(?:')?(?:\s*):/g;// look for object names
+        let json = {};
+
+        for (let prop in params) {
+            let val = '' + params[prop];
+            if (!val.startsWith('{') && !val.startsWith('[')) {              
+                json[prop] = params[prop];
+                continue;
+            }
+
+            // need to stringify in case it's a number or such
+            let text = val.replace(objKeysRegex, "$1\"$2\":");
+            // put the json property of the same name to the parsed JSON object
+            json[prop] = JSON.parse(text);
+
+        }
+
+        // debug(json);
+        return json;
+    }
+    catch (err) {
+        console.error(err);
+        return params;
+    }
+}
+```
 
 Enjoy!
 
