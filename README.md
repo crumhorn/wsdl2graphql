@@ -3,10 +3,17 @@
 This is a quick and hastily written project that takes a .wsdl file or a url to a wsdl and generates GraphQL schema from it, as best as it can. The result are by no means complete and may require manual reordering as the GraphQL schema has to be in order, but it will be a great start rather than writing the entire schema by hand.
 
 Easiest is to import the project in IntelliJ IDEA and run it from there as then you don't have to worry about classpaths etc, however, the following should work as well:
+
+## Changelog
+- Sep 27, 2016 
+    - First check in
+- Feb 22, 2018
+    - Fixed missing pom dependency, thanks ```@treksler``` 
+    - Checked in code that allows for typeSchema generation rather than the raw JS (experimental) 
  
 ## Requirements
 
-- Java 8
+- Java 8+
 
 ## Important
 
@@ -25,11 +32,16 @@ run `java Main` as follows:
 
 _(You may need to inclue all the jars in the `./lib` classpath as part of the java command argument, as these are required)_
 
-```java Main -i wsdlUrlOrFile -o outputFile.graphql -t typeSchema```
+Normal:
+- ```java Main -i wsdlUrlOrFile -o outputFile.graphql```
+
+Output to Type Schema:
+- ```java Main -i wsdlUrlOrFile -o outputFile.graphql -t typeSchema```
  
-`-i <inputFile>` is the input file or URL
-`-o <outputFile>` is the output file of the generated schema.
-`-t <schemaType>` optionally set to "typeSchema" to output GraphQL type schema rather than normal JS
+Option Details:
+- `-i <inputFile>` is the input file or URL
+- `-o <outputFile>` is the output file of the generated schema.
+- `-t <schemaType>` optionally you can set this to ```typeSchema``` to output GraphQL type schema rather than normal JS
  
  _The IntelliJ IDEA project files are also included, so it may be even easier to run it from there if you have it, just add the launch parameters to the program arguments in the launcher_ 
 
