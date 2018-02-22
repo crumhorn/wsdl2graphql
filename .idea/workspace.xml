@@ -40,8 +40,8 @@
       <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2950">
-              <caret line="79" column="41" lean-forward="false" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="41" />
+            <state relative-caret-position="180">
+              <caret line="394" column="80" lean-forward="false" selection-start-line="394" selection-start-column="75" selection-end-line="394" selection-end-column="80" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -159,17 +159,17 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="293">
-                <caret line="81" column="54" lean-forward="false" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
+              <first_editor relative-caret-position="179">
+                <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
                 <folding>
-                  <marker date="1519293994163" expanded="true" signature="3057:4219" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
-                  <marker date="1519293994163" expanded="true" signature="4247:5276" ph="{...}" />
-                  <marker date="1519293994163" expanded="true" signature="4257:5199" ph="{...}" />
-                  <marker date="1519293994163" expanded="true" signature="4259:4480" ph="//..." />
-                  <marker date="1519293994163" expanded="true" signature="4267:4480" ph="//..." />
-                  <marker date="1519293994163" expanded="true" signature="4683:5147" ph="{...}" />
-                  <marker date="1519293994163" expanded="true" signature="4788:4886" ph="{...}" />
-                  <marker date="1519293994163" expanded="true" signature="5216:5274" ph="{...}" />
+                  <marker date="1519294256797" expanded="true" signature="3069:4231" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
+                  <marker date="1519294256797" expanded="true" signature="4259:5288" ph="{...}" />
+                  <marker date="1519294256797" expanded="true" signature="4269:5211" ph="{...}" />
+                  <marker date="1519294256797" expanded="true" signature="4271:4492" ph="//..." />
+                  <marker date="1519294256797" expanded="true" signature="4279:4492" ph="//..." />
+                  <marker date="1519294256797" expanded="true" signature="4695:5159" ph="{...}" />
+                  <marker date="1519294256797" expanded="true" signature="4800:4898" ph="{...}" />
+                  <marker date="1519294256797" expanded="true" signature="5228:5286" ph="{...}" />
                 </folding>
               </first_editor>
               <second_editor />
@@ -472,8 +472,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tradeReportTransTypeEnum</find>
-      <find>tradingAccessRoleEnum</find>
       <find>tradingSessionEnum</find>
       <find>tradeCrit</find>
       <find>reportedTrades</find>
@@ -502,6 +500,8 @@
       <find>getTypes</find>
       <find>types</find>
       <find>&quot;types&quot;</find>
+      <find>233</find>
+      <find>&quot;Enum</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -1169,12 +1169,12 @@
       <workItem from="1498727382260" duration="2854000" />
       <workItem from="1504097513425" duration="1193000" />
       <workItem from="1505994237541" duration="3594000" />
-      <workItem from="1519291826919" duration="2147000" />
+      <workItem from="1519291826919" duration="2409000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64773000" />
+    <option name="totallyTimeSpent" value="65035000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1096" extended-state="6" />
@@ -2143,16 +2143,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2950">
-          <caret line="79" column="41" lean-forward="false" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
@@ -2188,20 +2178,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="394" column="80" lean-forward="false" selection-start-line="394" selection-start-column="75" selection-end-line="394" selection-end-column="80" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="293">
-            <caret line="81" column="54" lean-forward="false" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
+          <first_editor relative-caret-position="179">
+            <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
             <folding>
-              <marker date="1519293994163" expanded="true" signature="3057:4219" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
-              <marker date="1519293994163" expanded="true" signature="4247:5276" ph="{...}" />
-              <marker date="1519293994163" expanded="true" signature="4257:5199" ph="{...}" />
-              <marker date="1519293994163" expanded="true" signature="4259:4480" ph="//..." />
-              <marker date="1519293994163" expanded="true" signature="4267:4480" ph="//..." />
-              <marker date="1519293994163" expanded="true" signature="4683:5147" ph="{...}" />
-              <marker date="1519293994163" expanded="true" signature="4788:4886" ph="{...}" />
-              <marker date="1519293994163" expanded="true" signature="5216:5274" ph="{...}" />
+              <marker date="1519294256797" expanded="true" signature="3069:4231" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
+              <marker date="1519294256797" expanded="true" signature="4259:5288" ph="{...}" />
+              <marker date="1519294256797" expanded="true" signature="4269:5211" ph="{...}" />
+              <marker date="1519294256797" expanded="true" signature="4271:4492" ph="//..." />
+              <marker date="1519294256797" expanded="true" signature="4279:4492" ph="//..." />
+              <marker date="1519294256797" expanded="true" signature="4695:5159" ph="{...}" />
+              <marker date="1519294256797" expanded="true" signature="4800:4898" ph="{...}" />
+              <marker date="1519294256797" expanded="true" signature="5228:5286" ph="{...}" />
             </folding>
           </first_editor>
           <second_editor />
