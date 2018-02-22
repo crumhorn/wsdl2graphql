@@ -65,19 +65,19 @@ public class Parser {
 
     private static final String _graphQlList = "GraphQLList";
 
-    public Parser(File file, String outputPath) {
+    public Parser(File file, String outputPath, boolean typeSchema) {
         _wsdlFile = file;
         _outputPath = outputPath;
-        parse();
+        parse(typeSchema);
     }
 
-    public Parser(String url, String outputPath) {
+    public Parser(String url, String outputPath, boolean typeSchema) {
         _wsdlUrl = url;
         _outputPath = outputPath;
-        parse();
+        parse(typeSchema);
     }
 
-    private void parse() {
+    private void parse(boolean typeSchema) {
         try {
             _parser = new WSDLParser();
             Definitions defs;
@@ -124,9 +124,11 @@ public class Parser {
                             }
 
                             data.setType("new " + _graphQlList + "(" + value + ")");
+                            data.setSchemaType("[" + value + "]");
                         } else {
                             _Logger.warn("Could not find origin class for complex type '{}', using 'unknownClass' instead. Make sure you change it later!", responseClass);
                             data.setType("unknownClass");
+                            data.setSchemaType("unknownClass");
                         }
                     }
 
@@ -157,7 +159,9 @@ public class Parser {
                                 if (!_graphQlTypeMap.values().contains(type)) {
                                     type = "GraphQLString";
                                 }
-                                data.addArgument(new DataField(df.getName(), type));
+                                DataField adf = new DataField(df.getName(), type);
+                                adf.setSchemaTypeToType();
+                                data.addArgument(adf);
                             }
                             buf.append("}");
                             buf2.append("}");
@@ -204,7 +208,7 @@ public class Parser {
                 }*/
             }
 
-            this.writeOutput(enums, classes, methods);
+            this.writeOutput(enums, classes, methods, typeSchema);
 
             _Logger.info("Finished! Yeay!");
 
@@ -276,12 +280,15 @@ public class Parser {
 
                 if (pe.getMaxOccurs().equals(UNBOUNDED)) {
                     df.setType("new " + _graphQlList + "(" + pe.getName() + ")");
+                    df.setSchemaType("[" + pe.getName() + "]");
                 } else {
                     int val = Integer.valueOf(pe.getMaxOccurs());
                     if (val == 1) {
                         df.setType(pe.getName());
+                        df.setSchemaType(pe.getName());
                     } else {
                         df.setType("new " + _graphQlList + "(" + pe.getName() + ")");
+                        df.setSchemaType("[" + pe.getName() + "]");
                     }
                 }
 
@@ -297,21 +304,28 @@ public class Parser {
 
         String type = pe.getType().getLocalPart();
         DataField df = clz.setAttribute(pe.getName(), type);
+        // raw type on schema
+        df.setSchemaType(type);
         clz.setMinOccurs(pe.getMinOccurs());
+        //System.err.println(pe.getName() + " :: " + pe.getMaxOccurs());
         clz.setMaxOccurs(pe.getMaxOccurs());
+
+        if ("unbounded".equals(pe.getMaxOccurs())) {
+            df.setSchemaType("[" + type + (pe.isNillable() ? "!" : "") + "]");
+        }
 
         // convert type to graphql type if it is one
         if (_graphQlTypeMap.containsKey(type)) {
             df.setType(_graphQlTypeMap.get(type));
+            df.setSchemaTypeToType();
         }
     }
 
-    private void writeOutput(List<DataEnum> enums, List<DataComplexType> types, List<DataComplexType> methods) {
+    private void writeOutput(List<DataEnum> enums, List<DataComplexType> types, List<DataComplexType> methods, boolean typeSchema) {
         try {
             PebbleEngine engine = new PebbleEngine.Builder().autoEscaping(false).build();
-            PebbleTemplate template = engine.getTemplate("templates/schema.pebble");
+            PebbleTemplate template = engine.getTemplate(typeSchema ? "templates/typeSchema.pebble" : "templates/schema.pebble");
 
-            Writer writer = new StringWriter();
             Map<String, Object> context = new HashMap<>();
 
             List<DataComplexType> methodsWithoutResponses = new ArrayList<>();
@@ -330,11 +344,13 @@ public class Parser {
             // clear dupes
             allTypes = new ArrayList<>(new LinkedHashSet<>(allTypes));
 
-            // do mappings
-            for (DataComplexType dct : allTypes) {
-                if (dct.getDerivesFrom() != null) {
-                    // get all fields from the derived class, nested
-                    this.mapDerivedFieldsOntoComplexType(dct, allTypes);
+            // do mappings (not for typeschema)
+            if (!typeSchema) {
+                for (DataComplexType dct : allTypes) {
+                    if (dct.getDerivesFrom() != null) {
+                        // get all fields from the derived class, nested
+                        this.mapDerivedFieldsOntoComplexType(dct, allTypes);
+                    }
                 }
             }
 
@@ -348,11 +364,18 @@ public class Parser {
             context.put("types", allTypes);
             context.put("operations", methodsWithoutResponses);
 
+            Writer writer = new StringWriter();
             template.evaluate(writer, context);
             String output = writer.toString();
 
-            _Logger.info("Writing file '{}'", _outputPath);
-            Files.write(output.getBytes(), new File(_outputPath));
+            String f = _outputPath;
+            if (typeSchema) {
+                f += ".typeSchema";
+            }
+
+            _Logger.info("Writing file '{}'", f);
+            Files.write(output.getBytes(), new File(f));
+
         } catch (Exception err) {
             _Logger.error("Error creating template", err);
         }

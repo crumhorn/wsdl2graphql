@@ -24,6 +24,7 @@ public class DataComplexType {
     private String _minOccurs;
     private String _maxOccurs;
     private String _type;
+    private String _schemaType;
     private String _resolveType;
     private String _return;
     private List<DataField> _fields = new ArrayList<>();
@@ -135,6 +136,14 @@ public class DataComplexType {
         _type = type;
     }
 
+    public String getSchemaType() {
+        return _schemaType;
+    }
+
+    public void setSchemaType(String schemaType) {
+        _schemaType = schemaType;
+    }
+
     public void setResolveType(String resolveType) {
         _resolveType = resolveType;
     }
@@ -161,6 +170,28 @@ public class DataComplexType {
 
     public List<DataField> getArgs() {
         return _args;
+    }
+
+    public String getArgsAsSchemaString() {
+        if (_args == null || _args.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder buf = new StringBuilder();
+        for (int i = 0; i < _args.size(); i++) {
+            DataField arg = _args.get(i);
+
+            buf.append(arg.getName());
+            buf.append(": ");
+            buf.append(arg.getSchemaType());
+            if (i != _args.size()-1) {
+                buf.append(", ");
+            }
+
+        }
+
+
+        return buf.toString();
     }
 
     public boolean hasOnlyStandardTypes(List<String> standardFields) {

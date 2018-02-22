@@ -1,0 +1,48 @@
+// WARNING! WARNING! WARNING!WARNING! WARNING! WARNING! WARNING! WARNING!
+// ----------------------------------------------------------------------
+// THIS FILE IS AUTO GENERATED - ONLY REMOVE THIS COMMENT IF YOU CAN ENSURE THE FILE WILL NOT BE OVERWRITTEN AT NEXT COMPILE TIME AND YOU'VE MANUALLY CHANGED IT FROM ITS SOURCE
+// ----------------------------------------------------------------------
+
+// ENUMS
+{% for enum in enums %}
+enum {{ enum.name }} {
+    {% for enumVal in enum.enumValues %}
+		{{ enumVal }}
+
+	{% endfor %}
+}
+
+{% endfor %}
+
+// CLASSES
+type unknownClass {
+	id: String
+}
+
+{% for type in types %}
+{% if type.derivesFrom != null %}
+// derives from: '{{ type.derivesFrom }}'
+{% endif %}
+type {{ type.name }}{% if type.derivesFrom != null %} implements {{ type.derivesFrom }}{% endif %} {
+    {% for field in type.fields %}
+    {% if field.notes != null %}
+        {{ field.notes }}
+    {% endif %}
+    {{- field.name }}: {{ field.schemaType }}
+
+    {% endfor %}
+}
+
+{% endfor %}
+
+// RESOLVERS, YOU PROBABLY WANT TO CUT THESE OUT, THESE ARE PURELY FOR REFERENCE
+type Query {
+    {% for operation in operations %}
+    {% if operation.args.size() == 0 %}
+        {{ operation.name }}: type: {{ operation.schemaType }}
+    {% else %}
+        {{ operation.name }}:({{operation.argsAsSchemaString}}) : {{ operation.schemaType }}
+    {% endif %}
+
+    {% endfor %}
+}

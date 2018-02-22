@@ -26,6 +26,10 @@ public class Main {
         output.setRequired(true);
         options.addOption(output);
 
+        Option outputType = new Option("t", "type", true, "output type ('ts' for Type Schema)");
+        outputType.setRequired(false);
+        options.addOption(outputType);
+
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
@@ -43,9 +47,10 @@ public class Main {
 
         String wsdlPath = cmd.getOptionValue("input");
         String outputPath = cmd.getOptionValue("output");
+        String typeSchema = cmd.getOptionValue("type");
 
         if (wsdlPath.startsWith("http")) {
-            new Parser(wsdlPath, outputPath);
+            new Parser(wsdlPath, outputPath, "typeSchema".equals("typeSchema"));
         }
         else {
             File f = new File(wsdlPath);
@@ -61,7 +66,7 @@ public class Main {
                 return;
             }
 
-            new Parser(f, outputPath);
+            new Parser(f, outputPath, "typeSchema".equals(typeSchema));
         }
     }
 

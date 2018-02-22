@@ -25,10 +25,11 @@ run `java Main` as follows:
 
 _(You may need to inclue all the jars in the `./lib` classpath as part of the java command argument, as these are required)_
 
-```java Main -i wsdlUrlOrFile -o outputFile.graphql```
+```java Main -i wsdlUrlOrFile -o outputFile.graphql -t typeSchema```
  
 `-i <inputFile>` is the input file or URL
 `-o <outputFile>` is the output file of the generated schema.
+`-t <schemaType>` optionally set to "typeSchema" to output GraphQL type schema rather than normal JS
  
  _The IntelliJ IDEA project files are also included, so it may be even easier to run it from there if you have it, just add the launch parameters to the program arguments in the launcher_ 
 
