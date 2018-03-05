@@ -84,6 +84,14 @@ public class DataComplexType {
         return _fields;
     }
 
+    public boolean hasFields() {
+        return _fields.size() > 0;
+    }
+
+    public boolean hasNoFields() {
+        return _fields.isEmpty();
+    }
+
     public List<String> getFieldDepdencies() {
         return getFields().stream().map(DataField::getType).collect(Collectors.toList());
     }

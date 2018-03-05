@@ -17,12 +17,18 @@ public class DataField implements Cloneable {
 
     // conversion of schema types to general types
     public static Map<String, String> typeMappings = new HashMap<>();
+    public static Map<String, String> schemaMappings = new HashMap<>();
 
     static {
         typeMappings.put("GraphQLString", "String");
         typeMappings.put("GraphQLInt", "Int");
         typeMappings.put("GraphQLFloat", "Float");
         typeMappings.put("GraphQLBoolean", "Boolean");
+
+        schemaMappings.put("GraphQLString", "String");
+        schemaMappings.put("GraphQLInt", "Int");
+        schemaMappings.put("GraphQLFloat", "Float");
+        schemaMappings.put("GraphQLBoolean", "Boolean");
     }
 
     public String _name;
@@ -63,9 +69,18 @@ public class DataField implements Cloneable {
         _type = type;
     }
 
-    public void setSchemaTypeToType() {
-        if (typeMappings.containsKey(_type)) {
-            _schemaType = typeMappings.get(_type);
+    public void setSchemaTypeToType(Boolean typeSchema) {
+        if (typeSchema) {
+            if (schemaMappings.containsKey(_type)) {
+                _schemaType = schemaMappings.get(_type);
+            }
+            else {
+                _schemaType = _type;
+            }
+        } else {
+            if (typeMappings.containsKey(_type)) {
+                _schemaType = typeMappings.get(_type);
+            }
         }
     }
 

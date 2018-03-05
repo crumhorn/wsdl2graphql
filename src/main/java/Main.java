@@ -50,7 +50,7 @@ public class Main {
         String typeSchema = cmd.getOptionValue("type");
 
         if (wsdlPath.startsWith("http")) {
-            new Parser(wsdlPath, outputPath, "typeSchema".equals("typeSchema"));
+            new Parser(wsdlPath, outputPath, "typeSchema".equals(typeSchema));
         }
         else {
             File f = new File(wsdlPath);

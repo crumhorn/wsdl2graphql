@@ -49,9 +49,13 @@ public class Parser {
     private String     _outputPath;
 
     private static Map<String, String> _graphQlTypeMap = new HashMap<>();
+    private static Map<String, String> _graphSchemaTypeMap = new HashMap<>();
 
     private Map<String, DataComplexType> _dataComplexTypeMap         = new HashMap<>();
     private Map<String, DataComplexType> _dataComplexTypeResponseMap = new HashMap<>();
+
+    private static List<String> _nonModifyingQueries = new ArrayList<>();
+    private static List<String> _modifyingQueries = new ArrayList<>();
 
     static {
         _graphQlTypeMap.put("string", "GraphQLString");
@@ -61,6 +65,24 @@ public class Parser {
         _graphQlTypeMap.put("float", "GraphQLFloat");
         _graphQlTypeMap.put("boolean", "GraphQLBoolean");
         _graphQlTypeMap.put("decimal", "GraphQLFloat");
+
+        // for Typeschema
+        _graphSchemaTypeMap.put("string", "String");
+        _graphSchemaTypeMap.put("dateTime", "String"); // js will have to parse, we don't have a type for this in GraphQL, user can create a custom type too
+        _graphSchemaTypeMap.put("int", "Int");
+        _graphSchemaTypeMap.put("long", "Int");
+        _graphSchemaTypeMap.put("float", "Float");
+        _graphSchemaTypeMap.put("boolean", "Boolean");
+        _graphSchemaTypeMap.put("decimal", "Float");
+
+        _nonModifyingQueries.add("find");
+        _nonModifyingQueries.add("get");
+
+        _modifyingQueries.add("create");
+        _modifyingQueries.add("delete");
+        _modifyingQueries.add("add");
+        _modifyingQueries.add("rename");
+        _modifyingQueries.add("set");
     }
 
     private static final String _graphQlList = "GraphQLList";
@@ -96,9 +118,10 @@ public class Parser {
             // parse all complex types (methods + classes, they're nearly identical)
             for (Schema schema : defs.getLocalTypes().getSchemas()) {
                 _Logger.trace("Parsing schema with " + schema.getComplexTypes().size() + " complex types");
+
                 for (ComplexType ct : schema.getComplexTypes()) {
                     _Logger.trace("Parsing complex type '{}'", ct.getName());
-                    DataComplexType data = getDataComplexType(ct, null);
+                    DataComplexType data = getDataComplexType(ct, null, typeSchema);
                     _dataComplexTypeMap.put(data.getName(), data);
                     if (data.isResponseClass()) {
                         _dataComplexTypeResponseMap.put(data.getName(), data);
@@ -119,8 +142,15 @@ public class Parser {
                         if (!response.getFields().isEmpty()) {
                             DataField resp = response.getFields().get(0);
                             String value = resp.getValue();
-                            if (_graphQlTypeMap.containsKey(value)) {
-                                value = _graphQlTypeMap.get(value);
+                            if (typeSchema) {
+                                if (_graphSchemaTypeMap.containsKey(value)) {
+                                    value = _graphSchemaTypeMap.get(value);
+                                }
+                            }
+                            else {
+                                if (_graphQlTypeMap.containsKey(value)) {
+                                    value = _graphQlTypeMap.get(value);
+                                }
                             }
 
                             data.setType("new " + _graphQlList + "(" + value + ")");
@@ -156,11 +186,18 @@ public class Parser {
                                 // this generates the arguments
                                 // as far as I understand, the input has to be normal types, it can't be full object graphs
                                 String type = df.getType();
-                                if (!_graphQlTypeMap.values().contains(type)) {
-                                    type = "GraphQLString";
+                                if (typeSchema) {
+                                    if (!_graphSchemaTypeMap.values().contains(type)) {
+                                        type = "String";
+                                    }
+                                }
+                                else {
+                                    if (!_graphQlTypeMap.values().contains(type)) {
+                                        type = "GraphQLString";
+                                    }
                                 }
                                 DataField adf = new DataField(df.getName(), type);
-                                adf.setSchemaTypeToType();
+                                adf.setSchemaTypeToType(typeSchema);
                                 data.addArgument(adf);
                             }
                             buf.append("}");
@@ -227,10 +264,14 @@ public class Parser {
         return e;
     }
 
-    private DataComplexType getDataComplexType(ComplexType ct, String nameOverride) throws Exception {
+    private DataComplexType getDataComplexType(ComplexType ct, String nameOverride, Boolean typeSchema) throws Exception {
         boolean isAbstract = "true".equals(ct.getAbstractAttr());
 
         String name = nameOverride != null ? nameOverride : ct.getName();
+
+//        if (name.equalsIgnoreCase("trackedIdEntity") || name.equalsIgnoreCase("eventConfigEntity")) {
+//            System.err.println();
+//        }
 
         DataComplexType clz = new DataComplexType(name, isAbstract);
 
@@ -248,7 +289,7 @@ public class Parser {
 
             for (SchemaComponent p : devSeq.getParticles()) {
                 if (p instanceof Element) {
-                    setDataFieldForParticle(clz, (Element) p);
+                    setDataFieldForParticle(clz, (Element) p, typeSchema);
                 }
             }
         } else if (ct.getModel() instanceof Sequence) {
@@ -256,7 +297,7 @@ public class Parser {
             Sequence seq = (Sequence) ct.getModel();
             for (SchemaComponent comp : seq.getParticles()) {
                 if (comp instanceof Element) {
-                    setDataFieldForParticle(clz, (Element) comp);
+                    setDataFieldForParticle(clz, (Element) comp, typeSchema);
                 }
             }
 
@@ -265,12 +306,12 @@ public class Parser {
         return clz;
     }
 
-    private void setDataFieldForParticle(DataComplexType clz, Element pe) throws Exception {
+    private void setDataFieldForParticle(DataComplexType clz, Element pe, Boolean typeSchema) throws Exception {
         if (pe.getType() == null) {
 
             // sub-complex type
             if (pe.getEmbeddedType() instanceof ComplexType) {
-                DataComplexType dct = getDataComplexType((ComplexType) pe.getEmbeddedType(), pe.getName());
+                DataComplexType dct = getDataComplexType((ComplexType) pe.getEmbeddedType(), pe.getName(), typeSchema);
 
                 //String type = "EMILWASHERE: " +pe.getName(); //pe.getType().getLocalPart();
                 // create a field with the name of the sub-complex type
@@ -317,7 +358,7 @@ public class Parser {
         // convert type to graphql type if it is one
         if (_graphQlTypeMap.containsKey(type)) {
             df.setType(_graphQlTypeMap.get(type));
-            df.setSchemaTypeToType();
+            df.setSchemaTypeToType(typeSchema);
         }
     }
 
@@ -357,12 +398,44 @@ public class Parser {
             // link them class-dependency style
             linkTypes(allTypes);
 
-            // sort last
-            allTypes = sortTypes(allTypes, enums);
+            if (typeSchema) {
+                // sort the types, order doesn't matter for type schema
+                allTypes.sort(Comparator.comparing(DataComplexType::getName));
+
+                // also sort the ops
+                methodsWithoutResponses.sort(Comparator.comparing(DataComplexType::getName));
+            } else {
+                // sort by most used first
+                allTypes = sortTypes(allTypes, enums);
+            }
 
             context.put("enums", enums);
             context.put("types", allTypes);
-            context.put("operations", methodsWithoutResponses);
+            if (typeSchema) {
+                List<DataComplexType> nonMods = new ArrayList<>();
+                List<DataComplexType> mods = new ArrayList<>();
+                methodsWithoutResponses.forEach(x -> {
+                    boolean any = false;
+                    for (String mod : _modifyingQueries) {
+                        if (x.getName().startsWith(mod)) {
+                            any = true;
+                        }
+                    }
+                    if (any) {
+                        mods.add(x);
+                    }
+                    else {
+                        nonMods.add(x);
+                    }
+
+                });
+
+                context.put("nonModifyingOperations", nonMods);
+                context.put("modifyingOperations", mods);
+            }
+            else {
+                context.put("operations", methodsWithoutResponses);
+            }
 
             Writer writer = new StringWriter();
             template.evaluate(writer, context);

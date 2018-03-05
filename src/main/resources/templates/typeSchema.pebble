@@ -3,46 +3,107 @@
 // THIS FILE IS AUTO GENERATED - ONLY REMOVE THIS COMMENT IF YOU CAN ENSURE THE FILE WILL NOT BE OVERWRITTEN AT NEXT COMPILE TIME AND YOU'VE MANUALLY CHANGED IT FROM ITS SOURCE
 // ----------------------------------------------------------------------
 
+let {makeExecutableSchema} = require('graphql-tools');
+
+let db = {};
+
 // ENUMS
-{% for enum in enums %}
-enum {{ enum.name }} {
-    {% for enumVal in enum.enumValues %}
-		{{ enumVal }}
+const enumDefs = `
+    {% for enum in enums %}
+    enum {{ enum.name }} {
+        {% for enumVal in enum.enumValues %}
+            {{ enumVal }}
 
-	{% endfor %}
-}
-
-{% endfor %}
-
-// CLASSES
-type unknownClass {
-	id: String
-}
-
-{% for type in types %}
-{% if type.derivesFrom != null %}
-// derives from: '{{ type.derivesFrom }}'
-{% endif %}
-type {{ type.name }}{% if type.derivesFrom != null %} implements {{ type.derivesFrom }}{% endif %} {
-    {% for field in type.fields %}
-    {% if field.notes != null %}
-        {{ field.notes }}
-    {% endif %}
-    {{- field.name }}: {{ field.schemaType }}
+        {% endfor %}
+    }
 
     {% endfor %}
-}
 
-{% endfor %}
+`;
 
-// RESOLVERS, YOU PROBABLY WANT TO CUT THESE OUT, THESE ARE PURELY FOR REFERENCE
+// CLASSES
+const classDefs = `
+    type unknownClass {
+        id: String
+    }
+
+    {% for type in types %}
+    {% if type.derivesFrom != null %}
+    # derives from: '{{ type.derivesFrom }}'
+    {% endif %}
+    type {{ type.name }}{% if type.derivesFrom != null %} implements {{ type.derivesFrom }}{% endif %} {
+        {% if type.hasNoFields %}
+            # we have to have some field here, so we fake one
+            {{ type.name }}NoFieldsPk: ID
+        {% endif %}
+        {% for field in type.fields %}
+        {% if field.notes != null %}
+            {{ field.notes }}
+        {% endif %}
+        {{- field.name }}: {{ field.schemaType }}
+
+        {% endfor %}
+    }
+
+    {% endfor %}
+
+`;
+
+// QUERIES (Non-modification queries)
+let Query = `
 type Query {
-    {% for operation in operations %}
+  {% for operation in nonModifyingOperations %}
+    {% if operation.args.size() == 0 %}
+      {{ operation.name }}: {{ operation.schemaType }}
+    {% else %}
+      {{ operation.name }}({{operation.argsAsSchemaString}}) : {{ operation.schemaType }}
+    {% endif %}
+
+    {% endfor %}
+}`;
+
+// MUTATIONS (Modification queries)
+let Mutation = `
+type Mutation {
+  {% for operation in modifyingOperations %}
     {% if operation.args.size() == 0 %}
         {{ operation.name }}: type: {{ operation.schemaType }}
     {% else %}
-        {{ operation.name }}:({{operation.argsAsSchemaString}}) : {{ operation.schemaType }}
+        {{ operation.name }}({{operation.argsAsSchemaString}}) : {{ operation.schemaType }}
     {% endif %}
 
     {% endfor %}
-}
+}`;
+
+// SCHEMA DEF
+const SchemaDefinition = `
+schema {
+    mutation: Mutation
+    query: Query
+}`;
+
+// RESOLVERS
+const resolvers = {
+    Query: {
+    {% for operation in nonModifyingOperations %}
+      {{ operation.name }}(root, _, context) {
+            return db.{{ operation.name }}();
+      },
+    {% endfor %}
+    },
+
+    // Mutations
+    Mutation: {
+ {% for operation in modifyingOperations %}
+     {{ operation.name }}(_, {json}) {
+            return db.{{ operation.name }}();
+     },
+    {% endfor %}
+    }
+};
+
+// CREATE SCHEMA
+export let Schema = makeExecutableSchema({
+  typeDefs: [enumDefs, classDefs, Query, Mutation],
+  resolvers: resolvers
+});
