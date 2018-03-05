@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4a1e5cb-59b4-4d46-be4a-122bc160ed72" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_xml_2_4_14.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Parser.java" afterPath="$PROJECT_DIR$/src/main/java/Parser.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataComplexType.java" afterPath="$PROJECT_DIR$/src/main/java/data/DataComplexType.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataField.java" afterPath="$PROJECT_DIR$/src/main/java/data/DataField.java" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/typeSchema.pebble" afterPath="$PROJECT_DIR$/src/main/resources/templates/typeSchema.pebble" />
-      <change beforePath="$PROJECT_DIR$/wsdl2graphql.iml" afterPath="$PROJECT_DIR$/wsdl2graphql.iml" />
     </list>
     <ignored path="wsdl2graphql.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,12 +44,13 @@
       <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="407" column="20" lean-forward="true" selection-start-line="407" selection-start-column="20" selection-end-line="407" selection-end-column="20" />
+            <state relative-caret-position="1168">
+              <caret line="412" column="41" lean-forward="false" selection-start-line="412" selection-start-column="41" selection-end-line="412" selection-end-column="41" />
               <folding>
+                <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#26367#26368#0" expanded="true" />
-                <element signature="e#26401#26402#0" expanded="true" />
+                <element signature="e#26911#26912#0" expanded="true" />
+                <element signature="e#26945#26946#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -126,8 +125,8 @@
       <file leaf-file-name="refdata.txt.typeSchema" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/refdata.txt.typeSchema">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4760">
-              <caret line="282" column="5" lean-forward="false" selection-start-line="282" selection-start-column="5" selection-end-line="282" selection-end-column="5" />
+            <state relative-caret-position="4828">
+              <caret line="286" column="5" lean-forward="false" selection-start-line="286" selection-start-column="5" selection-end-line="286" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -156,13 +155,15 @@
       <file leaf-file-name="DataComplexType.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/data/DataComplexType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="204" column="43" lean-forward="false" selection-start-line="204" selection-start-column="18" selection-end-line="204" selection-end-column="43" />
+            <state relative-caret-position="204">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
                 <element signature="e#3161#3162#0" expanded="true" />
                 <element signature="e#3202#3203#0" expanded="true" />
                 <element signature="e#3238#3239#0" expanded="true" />
                 <element signature="e#3278#3279#0" expanded="true" />
+                <element signature="e#3715#3716#0" expanded="true" />
+                <element signature="e#3758#3759#0" expanded="true" />
                 <element signature="e#4608#4609#0" expanded="true" />
                 <element signature="e#4650#4651#0" expanded="true" />
               </folding>
@@ -174,17 +175,17 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="187">
-                <caret line="11" column="9" lean-forward="false" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+              <first_editor relative-caret-position="113">
+                <caret line="53" column="27" lean-forward="true" selection-start-line="53" selection-start-column="27" selection-end-line="53" selection-end-column="27" />
                 <folding>
-                  <marker date="1520247911204" expanded="true" signature="2893:4055" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
-                  <marker date="1520247911204" expanded="true" signature="4083:5112" ph="{...}" />
-                  <marker date="1520247911204" expanded="true" signature="4093:5035" ph="{...}" />
-                  <marker date="1520247911204" expanded="true" signature="4095:4316" ph="//..." />
-                  <marker date="1520247911204" expanded="true" signature="4103:4316" ph="//..." />
-                  <marker date="1520247911204" expanded="true" signature="4519:4983" ph="{...}" />
-                  <marker date="1520247911204" expanded="true" signature="4624:4722" ph="{...}" />
-                  <marker date="1520247911204" expanded="true" signature="5052:5110" ph="{...}" />
+                  <marker date="1520251070869" expanded="true" signature="3021:4183" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
+                  <marker date="1520251070869" expanded="true" signature="4211:5240" ph="{...}" />
+                  <marker date="1520251070869" expanded="true" signature="4221:5163" ph="{...}" />
+                  <marker date="1520251070869" expanded="true" signature="4223:4444" ph="//..." />
+                  <marker date="1520251070869" expanded="true" signature="4231:4444" ph="//..." />
+                  <marker date="1520251070869" expanded="true" signature="4647:5111" ph="{...}" />
+                  <marker date="1520251070869" expanded="true" signature="4752:4850" ph="{...}" />
+                  <marker date="1520251070869" expanded="true" signature="5180:5238" ph="{...}" />
                 </folding>
               </first_editor>
               <second_editor />
@@ -218,19 +219,26 @@
       <file leaf-file-name="DataField.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/data/DataField.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="82" column="13" lean-forward="false" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
+            <state relative-caret-position="265">
+              <caret line="96" column="5" lean-forward="true" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
               <folding>
-                <element signature="e#3133#3134#0" expanded="true" />
-                <element signature="e#3161#3162#0" expanded="true" />
-                <element signature="e#3193#3194#0" expanded="true" />
-                <element signature="e#3222#3223#0" expanded="true" />
-                <element signature="e#3271#3272#0" expanded="true" />
-                <element signature="e#3301#3302#0" expanded="true" />
-                <element signature="e#3338#3339#0" expanded="true" />
-                <element signature="e#3372#3373#0" expanded="true" />
-                <element signature="e#3418#3419#0" expanded="true" />
-                <element signature="e#3452#3453#0" expanded="true" />
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#3448#3449#0" expanded="true" />
+                <element signature="e#3476#3477#0" expanded="true" />
+                <element signature="e#3508#3509#0" expanded="true" />
+                <element signature="e#3537#3538#0" expanded="true" />
+                <element signature="e#3579#3580#0" expanded="true" />
+                <element signature="e#3609#3610#0" expanded="true" />
+                <element signature="e#3646#3647#0" expanded="true" />
+                <element signature="e#3680#3681#0" expanded="true" />
+                <element signature="e#3726#3727#0" expanded="true" />
+                <element signature="e#3760#3761#0" expanded="true" />
+                <element signature="e#3796#3797#0" expanded="true" />
+                <element signature="e#3828#3829#0" expanded="true" />
+                <element signature="e#3866#3867#0" expanded="true" />
+                <element signature="e#3902#3903#0" expanded="true" />
+                <element signature="e#3951#3952#0" expanded="true" />
+                <element signature="e#3992#3993#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -480,8 +488,8 @@
       <file leaf-file-name="typeSchema.pebble" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/typeSchema.pebble">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1853">
-              <caret line="109" column="3" lean-forward="false" selection-start-line="109" selection-start-column="3" selection-end-line="109" selection-end-column="3" />
+            <state relative-caret-position="212">
+              <caret line="37" column="29" lean-forward="true" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -498,25 +506,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setname</find>
-      <find>setDataFieldForParticle</find>
-      <find>new DataComplexType</find>
-      <find>new DataCom</find>
-      <find>tracked</find>
-      <find>.equa</find>
-      <find>equalsIgnoreCase</find>
-      <find>eventConfigEntity</find>
-      <find>getDataComplexType</find>
-      <find>getEvent</find>
-      <find>eventC</find>
-      <find>&quot;types</find>
-      <find>system.err</find>
-      <find>write</find>
-      <find>derives</find>
-      <find>//</find>
-      <find>abstra</find>
-      <find>fields</find>
-      <find>schemaType</find>
       <find>setschemaType</find>
       <find>_graphQlTypeMap</find>
       <find>_graphSchemaTypeMap</find>
@@ -525,8 +514,27 @@
       <find>argsAsSchemaString</find>
       <find>setSChemaType</find>
       <find>new DataField</find>
-      <find>setSChemaType(</find>
       <find>-</find>
+      <find>line</find>
+      <find>&quot;Resp</find>
+      <find>&quot;Enum</find>
+      <find>type</find>
+      <find>null</find>
+      <find>mino</find>
+      <find>minoccurs</find>
+      <find>nillable</find>
+      <find>Nillable</find>
+      <find>setSChemaType(</find>
+      <find>set</find>
+      <find>schemaMappings</find>
+      <find>&quot;ID</find>
+      <find>_schemaType</find>
+      <find>schemaType</find>
+      <find>lowercase</find>
+      <find>LowerCase</find>
+      <find>fo</find>
+      <find>lower</find>
+      <find>write</find>
       <find>.sort</find>
     </findStrings>
   </component>
@@ -554,11 +562,11 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/proxy.bat" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/data/DataField.java" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/data/DataComplexType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/DataField.java" />
         <option value="$PROJECT_DIR$/src/main/java/Parser.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/typeSchema.pebble" />
       </list>
@@ -1211,15 +1219,16 @@
       <workItem from="1504097513425" duration="1193000" />
       <workItem from="1505994237541" duration="3594000" />
       <workItem from="1519291826919" duration="2736000" />
-      <workItem from="1520234319010" duration="10992000" />
+      <workItem from="1520234319010" duration="12344000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76354000" />
+    <option name="totallyTimeSpent" value="77706000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1243,7 +1252,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.49530074" sideWeight="0.4875" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.49530074" sideWeight="0.4875" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1268,7 +1277,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="93" />
+      <option name="time" value="94" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -1311,6 +1320,8 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3238#3239#0" expanded="true" />
             <element signature="e#3278#3279#0" expanded="true" />
+            <element signature="e#3715#3716#0" expanded="true" />
+            <element signature="e#3758#3759#0" expanded="true" />
             <element signature="e#4608#4609#0" expanded="true" />
             <element signature="e#4650#4651#0" expanded="true" />
           </folding>
@@ -1322,16 +1333,23 @@
         <state relative-caret-position="833">
           <caret line="49" column="46" lean-forward="false" selection-start-line="49" selection-start-column="46" selection-end-line="49" selection-end-column="46" />
           <folding>
-            <element signature="e#3133#3134#0" expanded="true" />
-            <element signature="e#3161#3162#0" expanded="true" />
-            <element signature="e#3193#3194#0" expanded="true" />
-            <element signature="e#3222#3223#0" expanded="true" />
-            <element signature="e#3271#3272#0" expanded="true" />
-            <element signature="e#3301#3302#0" expanded="true" />
-            <element signature="e#3338#3339#0" expanded="true" />
-            <element signature="e#3372#3373#0" expanded="true" />
-            <element signature="e#3418#3419#0" expanded="true" />
-            <element signature="e#3452#3453#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#3448#3449#0" expanded="true" />
+            <element signature="e#3476#3477#0" expanded="true" />
+            <element signature="e#3508#3509#0" expanded="true" />
+            <element signature="e#3537#3538#0" expanded="true" />
+            <element signature="e#3579#3580#0" expanded="true" />
+            <element signature="e#3609#3610#0" expanded="true" />
+            <element signature="e#3646#3647#0" expanded="true" />
+            <element signature="e#3680#3681#0" expanded="true" />
+            <element signature="e#3726#3727#0" expanded="true" />
+            <element signature="e#3760#3761#0" expanded="true" />
+            <element signature="e#3796#3797#0" expanded="true" />
+            <element signature="e#3828#3829#0" expanded="true" />
+            <element signature="e#3866#3867#0" expanded="true" />
+            <element signature="e#3902#3903#0" expanded="true" />
+            <element signature="e#3951#3952#0" expanded="true" />
+            <element signature="e#3992#3993#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1580,9 +1598,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#26367#26368#0" expanded="true" />
-            <element signature="e#26401#26402#0" expanded="true" />
+            <element signature="e#26911#26912#0" expanded="true" />
+            <element signature="e#26945#26946#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1597,6 +1616,8 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3238#3239#0" expanded="true" />
             <element signature="e#3278#3279#0" expanded="true" />
+            <element signature="e#3715#3716#0" expanded="true" />
+            <element signature="e#3758#3759#0" expanded="true" />
             <element signature="e#4608#4609#0" expanded="true" />
             <element signature="e#4650#4651#0" expanded="true" />
           </folding>
@@ -1608,16 +1629,23 @@
         <state relative-caret-position="238">
           <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
           <folding>
-            <element signature="e#3133#3134#0" expanded="true" />
-            <element signature="e#3161#3162#0" expanded="true" />
-            <element signature="e#3193#3194#0" expanded="true" />
-            <element signature="e#3222#3223#0" expanded="true" />
-            <element signature="e#3271#3272#0" expanded="true" />
-            <element signature="e#3301#3302#0" expanded="true" />
-            <element signature="e#3338#3339#0" expanded="true" />
-            <element signature="e#3372#3373#0" expanded="true" />
-            <element signature="e#3418#3419#0" expanded="true" />
-            <element signature="e#3452#3453#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#3448#3449#0" expanded="true" />
+            <element signature="e#3476#3477#0" expanded="true" />
+            <element signature="e#3508#3509#0" expanded="true" />
+            <element signature="e#3537#3538#0" expanded="true" />
+            <element signature="e#3579#3580#0" expanded="true" />
+            <element signature="e#3609#3610#0" expanded="true" />
+            <element signature="e#3646#3647#0" expanded="true" />
+            <element signature="e#3680#3681#0" expanded="true" />
+            <element signature="e#3726#3727#0" expanded="true" />
+            <element signature="e#3760#3761#0" expanded="true" />
+            <element signature="e#3796#3797#0" expanded="true" />
+            <element signature="e#3828#3829#0" expanded="true" />
+            <element signature="e#3866#3867#0" expanded="true" />
+            <element signature="e#3902#3903#0" expanded="true" />
+            <element signature="e#3951#3952#0" expanded="true" />
+            <element signature="e#3992#3993#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1866,9 +1894,10 @@
         <state relative-caret-position="646">
           <caret line="38" column="35" lean-forward="false" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
           <folding>
+            <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#26367#26368#0" expanded="true" />
-            <element signature="e#26401#26402#0" expanded="true" />
+            <element signature="e#26911#26912#0" expanded="true" />
+            <element signature="e#26945#26946#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2197,8 +2226,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/refdata.txt.typeSchema">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4760">
-          <caret line="282" column="5" lean-forward="false" selection-start-line="282" selection-start-column="5" selection-end-line="282" selection-end-column="5" />
+        <state relative-caret-position="4828">
+          <caret line="286" column="5" lean-forward="false" selection-start-line="286" selection-start-column="5" selection-end-line="286" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -2216,45 +2245,6 @@
         <state relative-caret-position="442">
           <caret line="1585" column="3" lean-forward="false" selection-start-line="1585" selection-start-column="3" selection-end-line="1585" selection-end-column="3" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/DataField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="82" column="13" lean-forward="false" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-          <folding>
-            <element signature="e#3133#3134#0" expanded="true" />
-            <element signature="e#3161#3162#0" expanded="true" />
-            <element signature="e#3193#3194#0" expanded="true" />
-            <element signature="e#3222#3223#0" expanded="true" />
-            <element signature="e#3271#3272#0" expanded="true" />
-            <element signature="e#3301#3302#0" expanded="true" />
-            <element signature="e#3338#3339#0" expanded="true" />
-            <element signature="e#3372#3373#0" expanded="true" />
-            <element signature="e#3418#3419#0" expanded="true" />
-            <element signature="e#3452#3453#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="187">
-            <caret line="11" column="9" lean-forward="false" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
-            <folding>
-              <marker date="1520247911204" expanded="true" signature="2893:4055" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
-              <marker date="1520247911204" expanded="true" signature="4083:5112" ph="{...}" />
-              <marker date="1520247911204" expanded="true" signature="4093:5035" ph="{...}" />
-              <marker date="1520247911204" expanded="true" signature="4095:4316" ph="//..." />
-              <marker date="1520247911204" expanded="true" signature="4103:4316" ph="//..." />
-              <marker date="1520247911204" expanded="true" signature="4519:4983" ph="{...}" />
-              <marker date="1520247911204" expanded="true" signature="4624:4722" ph="{...}" />
-              <marker date="1520247911204" expanded="true" signature="5052:5110" ph="{...}" />
-            </folding>
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -2285,33 +2275,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/DataComplexType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="204" column="43" lean-forward="false" selection-start-line="204" selection-start-column="18" selection-end-line="204" selection-end-column="43" />
-          <folding>
-            <element signature="e#3161#3162#0" expanded="true" />
-            <element signature="e#3202#3203#0" expanded="true" />
-            <element signature="e#3238#3239#0" expanded="true" />
-            <element signature="e#3278#3279#0" expanded="true" />
-            <element signature="e#4608#4609#0" expanded="true" />
-            <element signature="e#4650#4651#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="407" column="20" lean-forward="true" selection-start-line="407" selection-start-column="20" selection-end-line="407" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#26367#26368#0" expanded="true" />
-            <element signature="e#26401#26402#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/schema.pebble">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -2320,10 +2283,86 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="113">
+            <caret line="53" column="27" lean-forward="true" selection-start-line="53" selection-start-column="27" selection-end-line="53" selection-end-column="27" />
+            <folding>
+              <marker date="1520251070869" expanded="true" signature="3021:4183" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
+              <marker date="1520251070869" expanded="true" signature="4211:5240" ph="{...}" />
+              <marker date="1520251070869" expanded="true" signature="4221:5163" ph="{...}" />
+              <marker date="1520251070869" expanded="true" signature="4223:4444" ph="//..." />
+              <marker date="1520251070869" expanded="true" signature="4231:4444" ph="//..." />
+              <marker date="1520251070869" expanded="true" signature="4647:5111" ph="{...}" />
+              <marker date="1520251070869" expanded="true" signature="4752:4850" ph="{...}" />
+              <marker date="1520251070869" expanded="true" signature="5180:5238" ph="{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/DataComplexType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#3161#3162#0" expanded="true" />
+            <element signature="e#3202#3203#0" expanded="true" />
+            <element signature="e#3238#3239#0" expanded="true" />
+            <element signature="e#3278#3279#0" expanded="true" />
+            <element signature="e#3715#3716#0" expanded="true" />
+            <element signature="e#3758#3759#0" expanded="true" />
+            <element signature="e#4608#4609#0" expanded="true" />
+            <element signature="e#4650#4651#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/DataField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="96" column="5" lean-forward="true" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#3448#3449#0" expanded="true" />
+            <element signature="e#3476#3477#0" expanded="true" />
+            <element signature="e#3508#3509#0" expanded="true" />
+            <element signature="e#3537#3538#0" expanded="true" />
+            <element signature="e#3579#3580#0" expanded="true" />
+            <element signature="e#3609#3610#0" expanded="true" />
+            <element signature="e#3646#3647#0" expanded="true" />
+            <element signature="e#3680#3681#0" expanded="true" />
+            <element signature="e#3726#3727#0" expanded="true" />
+            <element signature="e#3760#3761#0" expanded="true" />
+            <element signature="e#3796#3797#0" expanded="true" />
+            <element signature="e#3828#3829#0" expanded="true" />
+            <element signature="e#3866#3867#0" expanded="true" />
+            <element signature="e#3902#3903#0" expanded="true" />
+            <element signature="e#3951#3952#0" expanded="true" />
+            <element signature="e#3992#3993#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1168">
+          <caret line="412" column="41" lean-forward="false" selection-start-line="412" selection-start-column="41" selection-end-line="412" selection-end-column="41" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#26911#26912#0" expanded="true" />
+            <element signature="e#26945#26946#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/typeSchema.pebble">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1853">
-          <caret line="109" column="3" lean-forward="false" selection-start-line="109" selection-start-column="3" selection-end-line="109" selection-end-column="3" />
+        <state relative-caret-position="212">
+          <caret line="37" column="29" lean-forward="true" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
           <folding />
         </state>
       </provider>

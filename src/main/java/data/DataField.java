@@ -15,6 +15,8 @@ import java.util.Map;
 
 public class DataField implements Cloneable {
 
+    public static final String TYPESCHEMA_ID = "ID";
+
     // conversion of schema types to general types
     public static Map<String, String> typeMappings = new HashMap<>();
     public static Map<String, String> schemaMappings = new HashMap<>();
@@ -36,6 +38,7 @@ public class DataField implements Cloneable {
     public String _type;
     public String _notes;
     public String _schemaType;
+    public boolean _nillable;
 
     public DataField(String name, String value) {
         _name = name;
@@ -71,12 +74,21 @@ public class DataField implements Cloneable {
 
     public void setSchemaTypeToType(Boolean typeSchema) {
         if (typeSchema) {
+            if (_name.toLowerCase().equals("id")) {
+                _schemaType = TYPESCHEMA_ID;
+                return;
+            }
             if (schemaMappings.containsKey(_type)) {
                 _schemaType = schemaMappings.get(_type);
             }
             else {
                 _schemaType = _type;
             }
+/*
+            if (_type.equals(STR_ID)) {
+                _schemaType = "ID";
+            }*/
+
         } else {
             if (typeMappings.containsKey(_type)) {
                 _schemaType = typeMappings.get(_type);
@@ -92,8 +104,6 @@ public class DataField implements Cloneable {
         return _notes;
     }
 
-    ;
-
     public void setNotes(String notes) {
         _notes = notes;
     }
@@ -106,12 +116,26 @@ public class DataField implements Cloneable {
         _schemaType = type;
     }
 
+
+    public boolean isNillable() {
+        return _nillable;
+    }
+
+    public boolean isNotNillable() {
+        return !isNillable();
+    }
+
+    public void setNillable(boolean nillable) {
+        this._nillable = nillable;
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         DataField clone = new DataField(getName(), getValue());
         clone.setType(getType());
         clone.setValue(getValue());
         clone.setNotes(getNotes());
+        clone.setNillable(isNillable());
         clone.setSchemaType(getSchemaType());
         return clone;
     }

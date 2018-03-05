@@ -29,9 +29,10 @@ const classDefs = `
 
 {% for type in types %}
 {% if type.derivesFrom != null %}
-# {{ type.name }} derives from: '{{ type.derivesFrom }}'
+# Class {{ type.name }} derives from: '{{ type.derivesFrom }}'
 {% else %}
-# {{ type.name }}
+# Class {{ type.name }}
+
 {% endif %}
     type {{ type.name }}{% if type.derivesFrom != null %} implements {{ type.derivesFrom }}{% endif %} {
     {% if type.hasNoFields %}
@@ -42,7 +43,7 @@ const classDefs = `
     {% if field.notes != null %}
         {{ field.notes }}
     {% endif %}
-    {{- field.name }}: {{ field.schemaType }}
+    {{- field.name }}: {{ field.schemaType }}{% if field.isNotNillable %}!{% endif %}
 
     {% endfor %}
 }

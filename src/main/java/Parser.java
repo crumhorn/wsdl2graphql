@@ -352,8 +352,14 @@ public class Parser {
         //System.err.println(pe.getName() + " :: " + pe.getMaxOccurs());
         clz.setMaxOccurs(pe.getMaxOccurs());
 
-        if ("unbounded".equals(pe.getMaxOccurs())) {
-            df.setSchemaType("[" + type + (pe.isNillable() ? "!" : "") + "]");
+        if (!typeSchema) {
+            if ("unbounded".equals(pe.getMaxOccurs())) {
+                df.setSchemaType("[" + type + (pe.isNillable() ? "!" : "") + "]");
+            }
+        }
+
+        if (pe.isNillable()) {
+            df.setNillable(true);
         }
 
         // convert type to graphql type if it is one
@@ -402,6 +408,19 @@ public class Parser {
             if (typeSchema) {
                 // sort the types, order doesn't matter for type schema
                 allTypes.sort(Comparator.comparing(DataComplexType::getName));
+
+                for (DataComplexType t : allTypes) {
+                    t.getFields().sort((o1, o2) -> {
+                        if (o1._name.equals("id")) {
+                            return -1;
+                        }
+                        if (o2._name.equals("id")) {
+                            return 1;
+                        }
+
+                        return 0;
+                    });
+                }
 
                 // also sort the ops (uncomment if you want it sorted, default is that it does the same order as the WSDL)
 //                methodsWithoutResponses.sort(Comparator.comparing(DataComplexType::getName));

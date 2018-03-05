@@ -15,8 +15,8 @@ Easiest is to import the project in IntelliJ IDEA and run it from there as then 
 
 The `Parser.java` class does a few assumptions that you may need to change to fit your WSDL/Service implementation, as this was written to target a specific Web Service.
  
-- First, any WSDL method/function ending with "Response" is treated as a response call. See line ```237```.
-- Second, any object name ending in "Enum" is treated as an Enum. See line ```395```.
+- First, any WSDL method/function ending with "Response" is treated as a response call. See line ```279```.
+- Second, any object name ending in "Enum" is treated as an Enum. See line ```469```.
  
 ## Compiling 
 
@@ -31,7 +31,7 @@ _(You may need to inclue all the jars in the `./lib` classpath as part of the ja
 Normal:
 - ```java Main -i wsdlUrlOrFile -o outputFile.graphql```
 
-Output to Type Schema:
+Output to [Type Schema](http://graphql.org/learn/schema/):
 - ```java Main -i wsdlUrlOrFile -o outputFile.graphql -t typeSchema```
  
 Option Details:
@@ -51,7 +51,9 @@ For modifying the Type Schema output, change the `resources/templates/typeSchema
 
 As you will see in the output of the generated schema file, there are calls made to: 
 
-`db.querySOAP` and `db.querySOAPWithArgs(...)` which will require your own implementation to call the SOAP backend. For our implementation we used the following NodeJS module:
+`db.querySOAP(...)` and `db.querySOAPWithArgs(...)` which will require your own implementation to call the SOAP backend. For our implementation we used the following NodeJS module:
+
+If you are generating Type Schema then the calls will be named `db.soapMethodName();`
 
 https://www.npmjs.com/package/soap
 
