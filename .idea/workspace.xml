@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4a1e5cb-59b4-4d46-be4a-122bc160ed72" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_predic8_soa_model_core_1_5_4.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_2_3_9.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_json_2_3_9.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_xml_2_3_9.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_9.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Parser.java" afterPath="$PROJECT_DIR$/src/main/java/Parser.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataComplexType.java" afterPath="$PROJECT_DIR$/src/main/java/data/DataComplexType.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataField.java" afterPath="$PROJECT_DIR$/src/main/java/data/DataField.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/typeSchema.pebble" afterPath="$PROJECT_DIR$/src/main/resources/templates/typeSchema.pebble" />
-      <change beforePath="$PROJECT_DIR$/wsdl2graphql.iml" afterPath="$PROJECT_DIR$/wsdl2graphql.iml" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" afterPath="$PROJECT_DIR$/CHANGELOG.md" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="wsdl2graphql.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -179,21 +165,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="383">
-                <caret line="38" column="67" lean-forward="false" selection-start-line="38" selection-start-column="54" selection-end-line="38" selection-end-column="67" />
+              <first_editor relative-caret-position="187">
+                <caret line="11" column="9" lean-forward="true" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
                 <folding>
-                  <marker date="1519294256797" expanded="true" signature="3069:4231" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
-                  <marker date="1519294256797" expanded="true" signature="4259:5288" ph="{...}" />
-                  <marker date="1519294256797" expanded="true" signature="4269:5211" ph="{...}" />
-                  <marker date="1519294256797" expanded="true" signature="4271:4492" ph="//..." />
-                  <marker date="1519294256797" expanded="true" signature="4279:4492" ph="//..." />
-                  <marker date="1519294256797" expanded="true" signature="4695:5159" ph="{...}" />
-                  <marker date="1519294256797" expanded="true" signature="4800:4898" ph="{...}" />
-                  <marker date="1519294256797" expanded="true" signature="5228:5286" ph="{...}" />
+                  <marker date="1520247911204" expanded="true" signature="2893:4055" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
+                  <marker date="1520247911204" expanded="true" signature="4083:5112" ph="{...}" />
+                  <marker date="1520247911204" expanded="true" signature="4093:5035" ph="{...}" />
+                  <marker date="1520247911204" expanded="true" signature="4095:4316" ph="//..." />
+                  <marker date="1520247911204" expanded="true" signature="4103:4316" ph="//..." />
+                  <marker date="1520247911204" expanded="true" signature="4519:4983" ph="{...}" />
+                  <marker date="1520247911204" expanded="true" signature="4624:4722" ph="{...}" />
+                  <marker date="1520247911204" expanded="true" signature="5052:5110" ph="{...}" />
                 </folding>
               </first_editor>
               <second_editor />
@@ -206,7 +192,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="153">
-                <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+                <caret line="9" column="12" lean-forward="true" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -466,7 +452,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="336">
@@ -562,14 +548,14 @@
         <option value="$PROJECT_DIR$/testFiles/smr7trade.wsdl" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/proxy.bat" />
-        <option value="$PROJECT_DIR$/CHANGELOG.md" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/data/DataComplexType.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/typeSchema.pebble" />
         <option value="$PROJECT_DIR$/src/main/java/Parser.java" />
         <option value="$PROJECT_DIR$/src/main/java/data/DataField.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -1220,12 +1206,12 @@
       <workItem from="1504097513425" duration="1193000" />
       <workItem from="1505994237541" duration="3594000" />
       <workItem from="1519291826919" duration="2736000" />
-      <workItem from="1520234319010" duration="8356000" />
+      <workItem from="1520234319010" duration="8544000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73718000" />
+    <option name="totallyTimeSpent" value="73906000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
@@ -2205,37 +2191,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/proxy.bat" />
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="153">
-            <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="383">
-            <caret line="38" column="67" lean-forward="false" selection-start-line="38" selection-start-column="54" selection-end-line="38" selection-end-column="67" />
-            <folding>
-              <marker date="1519294256797" expanded="true" signature="3069:4231" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
-              <marker date="1519294256797" expanded="true" signature="4259:5288" ph="{...}" />
-              <marker date="1519294256797" expanded="true" signature="4269:5211" ph="{...}" />
-              <marker date="1519294256797" expanded="true" signature="4271:4492" ph="//..." />
-              <marker date="1519294256797" expanded="true" signature="4279:4492" ph="//..." />
-              <marker date="1519294256797" expanded="true" signature="4695:5159" ph="{...}" />
-              <marker date="1519294256797" expanded="true" signature="4800:4898" ph="{...}" />
-              <marker date="1519294256797" expanded="true" signature="5228:5286" ph="{...}" />
-            </folding>
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testFiles/RefData.wsdl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -2335,6 +2290,37 @@
         <state relative-caret-position="336">
           <caret line="133" column="21" lean-forward="true" selection-start-line="133" selection-start-column="21" selection-end-line="133" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="153">
+            <caret line="9" column="12" lean-forward="true" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="187">
+            <caret line="11" column="9" lean-forward="true" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+            <folding>
+              <marker date="1520247911204" expanded="true" signature="2893:4055" ph="/** This method fixes the passed in GraphQL parameters and turns them into a correct JSON formatted object so that the soap body is correct. Thus, a query like this: ...*/" />
+              <marker date="1520247911204" expanded="true" signature="4083:5112" ph="{...}" />
+              <marker date="1520247911204" expanded="true" signature="4093:5035" ph="{...}" />
+              <marker date="1520247911204" expanded="true" signature="4095:4316" ph="//..." />
+              <marker date="1520247911204" expanded="true" signature="4103:4316" ph="//..." />
+              <marker date="1520247911204" expanded="true" signature="4519:4983" ph="{...}" />
+              <marker date="1520247911204" expanded="true" signature="4624:4722" ph="{...}" />
+              <marker date="1520247911204" expanded="true" signature="5052:5110" ph="{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

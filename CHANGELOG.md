@@ -1,3 +1,11 @@
+<a name="2018-03-05"></a>
+# 2018-03-05
+
+### Bug Fixes
+
+* **versions:** Upgrades dependency versions
+* **improvement:** Much better typeschema generation 
+
 <a name="2018-02-22"></a>
 # 2018-02-22
 

@@ -5,11 +5,7 @@ This is a quick and hastily written project that takes a .wsdl file or a url to 
 Easiest is to import the project in IntelliJ IDEA and run it from there as then you don't have to worry about classpaths etc, however, the following should work as well:
 
 ## Changelog
-- Sep 27, 2016 
-    - First check in
-- Feb 22, 2018
-    - Fixed missing pom dependency, thanks ```@treksler``` 
-    - Checked in code that allows for typeSchema generation rather than the raw JS (experimental) 
+- See [CHANGELOG.md](CHANGELOG.md)
  
 ## Requirements
 
