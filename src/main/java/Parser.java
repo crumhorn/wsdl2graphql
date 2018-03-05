@@ -82,6 +82,7 @@ public class Parser {
         _modifyingQueries.add("delete");
         _modifyingQueries.add("add");
         _modifyingQueries.add("rename");
+        _modifyingQueries.add("modify");
         _modifyingQueries.add("set");
     }
 
@@ -402,8 +403,8 @@ public class Parser {
                 // sort the types, order doesn't matter for type schema
                 allTypes.sort(Comparator.comparing(DataComplexType::getName));
 
-                // also sort the ops
-                methodsWithoutResponses.sort(Comparator.comparing(DataComplexType::getName));
+                // also sort the ops (uncomment if you want it sorted, default is that it does the same order as the WSDL)
+//                methodsWithoutResponses.sort(Comparator.comparing(DataComplexType::getName));
             } else {
                 // sort by most used first
                 allTypes = sortTypes(allTypes, enums);

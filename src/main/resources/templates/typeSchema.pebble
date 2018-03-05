@@ -9,15 +9,15 @@ let db = {};
 
 // ENUMS
 const enumDefs = `
-    {% for enum in enums %}
+{% for enum in enums %}
     enum {{ enum.name }} {
-        {% for enumVal in enum.enumValues %}
-            {{ enumVal }}
-
-        {% endfor %}
-    }
+    {% for enumVal in enum.enumValues %}
+    {{ enumVal }}
 
     {% endfor %}
+}
+
+{% endfor %}
 
 `;
 
@@ -27,23 +27,25 @@ const classDefs = `
         id: String
     }
 
-    {% for type in types %}
-    {% if type.derivesFrom != null %}
-    # derives from: '{{ type.derivesFrom }}'
-    {% endif %}
+{% for type in types %}
+{% if type.derivesFrom != null %}
+# {{ type.name }} derives from: '{{ type.derivesFrom }}'
+{% else %}
+# {{ type.name }}
+{% endif %}
     type {{ type.name }}{% if type.derivesFrom != null %} implements {{ type.derivesFrom }}{% endif %} {
-        {% if type.hasNoFields %}
-            # we have to have some field here, so we fake one
-            {{ type.name }}NoFieldsPk: ID
-        {% endif %}
-        {% for field in type.fields %}
-        {% if field.notes != null %}
-            {{ field.notes }}
-        {% endif %}
-        {{- field.name }}: {{ field.schemaType }}
+    {% if type.hasNoFields %}
+    # we have to have some field here, so we fake one
+        {{ type.name }}NoFieldsPk: ID
+    {% endif %}
+    {% for field in type.fields %}
+    {% if field.notes != null %}
+        {{ field.notes }}
+    {% endif %}
+    {{- field.name }}: {{ field.schemaType }}
 
-        {% endfor %}
-    }
+    {% endfor %}
+}
 
     {% endfor %}
 
@@ -52,27 +54,27 @@ const classDefs = `
 // QUERIES (Non-modification queries)
 let Query = `
 type Query {
-  {% for operation in nonModifyingOperations %}
-    {% if operation.args.size() == 0 %}
-      {{ operation.name }}: {{ operation.schemaType }}
-    {% else %}
-      {{ operation.name }}({{operation.argsAsSchemaString}}) : {{ operation.schemaType }}
-    {% endif %}
+{% for operation in nonModifyingOperations %}
+{% if operation.args.size() == 0 %}
+    {{ operation.name }}: {{ operation.schemaType }}
+{% else %}
+    {{ operation.name }}({{operation.argsAsSchemaString}}) : {{ operation.schemaType }}
+{% endif %}
 
-    {% endfor %}
+{% endfor %}
 }`;
 
 // MUTATIONS (Modification queries)
 let Mutation = `
 type Mutation {
-  {% for operation in modifyingOperations %}
-    {% if operation.args.size() == 0 %}
-        {{ operation.name }}: type: {{ operation.schemaType }}
-    {% else %}
-        {{ operation.name }}({{operation.argsAsSchemaString}}) : {{ operation.schemaType }}
-    {% endif %}
+{% for operation in modifyingOperations %}
+{% if operation.args.size() == 0 %}
+    {{ operation.name }}: type: {{ operation.schemaType }}
+{% else %}
+    {{ operation.name }}({{operation.argsAsSchemaString}}) : {{ operation.schemaType }}
+{% endif %}
 
-    {% endfor %}
+{% endfor %}
 }`;
 
 // SCHEMA DEF
@@ -86,24 +88,24 @@ schema {
 const resolvers = {
     Query: {
     {% for operation in nonModifyingOperations %}
-      {{ operation.name }}(root, _, context) {
+    {{ operation.name }}(root, { {{ operation.getArgsAsTypeschemaString }} }, context) {
             return db.{{ operation.name }}();
-      },
+        },
     {% endfor %}
-    },
+},
 
     // Mutations
     Mutation: {
- {% for operation in modifyingOperations %}
-     {{ operation.name }}(_, {json}) {
+    {% for operation in modifyingOperations %}
+    {{ operation.name }}(root, { {{ operation.getArgsAsTypeschemaString }} }, context) {
             return db.{{ operation.name }}();
-     },
+        },
     {% endfor %}
-    }
+}
 };
 
 // CREATE SCHEMA
 export let Schema = makeExecutableSchema({
-  typeDefs: [enumDefs, classDefs, Query, Mutation],
-  resolvers: resolvers
+   typeDefs: [enumDefs, classDefs, Query, Mutation],
+   resolvers: resolvers
 });

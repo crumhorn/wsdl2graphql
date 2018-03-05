@@ -202,6 +202,26 @@ public class DataComplexType {
         return buf.toString();
     }
 
+    public String getArgsAsTypeschemaString() {
+        if (_args == null || _args.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder buf = new StringBuilder();
+        for (int i = 0; i < _args.size(); i++) {
+            DataField arg = _args.get(i);
+
+            buf.append(arg.getName());
+            if (i != _args.size()-1) {
+                buf.append(", ");
+            }
+
+        }
+
+
+        return buf.toString();
+    }
+
     public boolean hasOnlyStandardTypes(List<String> standardFields) {
         if (_children.size() == 0) {
             for (DataField df : _fields) {
