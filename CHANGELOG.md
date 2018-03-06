@@ -1,3 +1,11 @@
+<a name="2018-03-06"></a>
+# 2018-03-06
+
+### Bug Fixes
+
+* **type schema:** Better output, support for generating the actual data calls
+* **bugfixe:** General fixes 
+
 <a name="2018-03-05"></a>
 # 2018-03-05
 

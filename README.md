@@ -57,6 +57,29 @@ If you are generating Type Schema then the calls will be named `db.soapMethodNam
 
 https://www.npmjs.com/package/soap
 
+## Type Schema Notes
+
+In the file `dataTranslation.txt` in the resources folder, you can modify the strings to generate a better call structure for your actual data calls. There are two lines in this file with two keys. The first key represents any data call that does not pass any arguments in the query, the other is for those that do pass arguments.
+  
+`noArguments:return db.querySOAP(SourceTypes.REFERENCE_DATA, root.user, '%QUERY_NAME%', %IS_LIST_RETURN%);`
+
+`withArguments:return db.querySOAPWithArgs(SourceTypes.REFERENCE_DATA, root.user, '%QUERY_NAME%', {%QUERY_ARGS%});`
+
+These also take a few `%KEY_WORDS%` that allow you to replace them with actual data. As of now, these are:
+
+| Key | Description |
+|-----|:-----------|
+| %QUERY_NAME% | This gets replaced with the name of the query as defined in the WSDL |
+| %QUERY_ARGS% | This gets replaced with a comma separated list of all arguments that the query takes | 
+| %IS_LIST_RETURN% | This gets replaced with a boolean representing if the return type is a list result or a single result |
+
+Example output from the above:
+
+```javascript
+return db.querySOAPWithArgs(SourceTypes.REFERENCE_DATA, root.user, 'queryNameHere', {arg1:arg1, arg2:arg2});
+return db.querySOAP(SourceTypes.REFERENCE_DATA, root.user, 'queryNameHere', true);
+```
+
 ## Notes
 
 _The output is usually not very "pretty", so I suggest opening the file in your favorite editor and run a javascript formatter on it._

@@ -34,14 +34,15 @@ const classDefs = `
 # Class {{ type.name }}
 
 {% endif %}
+    {% if type.isAbstract %}
+    interface {{ type.name }} {
+    {% else %}
     type {{ type.name }}{% if type.derivesFrom != null %} implements {{ type.derivesFrom }}{% endif %} {
-    {% if type.hasNoFields %}
-    # we have to have some field here, so we fake one
-        {{ type.name }}NoFieldsPk: ID
     {% endif %}
     {% for field in type.fields %}
     {% if field.notes != null %}
-        {{ field.notes }}
+{{ field.notes }}
+
     {% endif %}
     {{- field.name }}: {{ field.schemaType }}{% if field.isNotNillable %}!{% endif %}
 
@@ -90,7 +91,8 @@ const resolvers = {
     Query: {
     {% for operation in nonModifyingOperations %}
     {{ operation.name }}(root, { {{ operation.getArgsAsTypeschemaString }} }, context) {
-            return db.{{ operation.name }}();
+            {{ operation.toTranslatedReturnStatement(dataTranslations, "db") }}
+
         },
     {% endfor %}
 },
@@ -99,7 +101,8 @@ const resolvers = {
     Mutation: {
     {% for operation in modifyingOperations %}
     {{ operation.name }}(root, { {{ operation.getArgsAsTypeschemaString }} }, context) {
-            return db.{{ operation.name }}();
+            {{ operation.toTranslatedReturnStatement(dataTranslations, "db") }}
+
         },
     {% endfor %}
 }

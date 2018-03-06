@@ -1,36 +1,38 @@
 /**
  * The MIT License (MIT)
- Copyright (c) 2016 Emil Crumhorn
-
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * Copyright (c) 2016 Emil Crumhorn
+ * <p>
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * <p>
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * <p>
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DataComplexType {
 
-    private String _name;
-    private String _derivesFrom;
+    private String  _name;
+    private String  _derivesFrom;
     private boolean _abstractClass;
     private boolean _responseClass;
     private boolean _sequence;
-    private String _minOccurs;
-    private String _maxOccurs;
-    private String _type;
-    private String _schemaType;
-    private String _resolveType;
-    private String _return;
-    private List<DataField> _fields = new ArrayList<>();
-    private List<DataComplexType> _children = new ArrayList<>();
+    private String  _minOccurs;
+    private String  _maxOccurs;
+    private String  _type;
+    private String  _schemaType;
+    private String  _resolveType;
+    private String  _return;
+    private List<DataField>       _fields             = new ArrayList<>();
+    private List<DataComplexType> _children           = new ArrayList<>();
     private List<DataComplexType> _linkedDependencies = new ArrayList<>();
-    private List<DataField> _args = new ArrayList<>();
+    private List<DataField>       _args               = new ArrayList<>();
 
     public DataComplexType(String name, boolean isAbstract) {
         _name = name;
@@ -82,6 +84,28 @@ public class DataComplexType {
 
     public List<DataField> getFields() {
         return _fields;
+    }
+
+    public boolean addField(DataField df, boolean dupeCheck) {
+        if (dupeCheck) {
+            if (!hasField(df.getName())) {
+                return _fields.add(df);
+            }
+        }
+        else {
+            return _fields.add(df);
+        }
+
+        return false;
+    }
+
+    public boolean hasField(String name) {
+        for (DataField df : _fields) {
+            if (df._name.equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean hasFields() {
@@ -192,7 +216,7 @@ public class DataComplexType {
             buf.append(arg.getName());
             buf.append(": ");
             buf.append(arg.getSchemaType());
-            if (i != _args.size()-1) {
+            if (i != _args.size() - 1) {
                 buf.append(", ");
             }
 
@@ -212,7 +236,7 @@ public class DataComplexType {
             DataField arg = _args.get(i);
 
             buf.append(arg.getName());
-            if (i != _args.size()-1) {
+            if (i != _args.size() - 1) {
                 buf.append(", ");
             }
 
@@ -231,11 +255,45 @@ public class DataComplexType {
             }
 
             return true;
-        }
-        else {
+        } else {
             return false;
         }
+    }
 
+    public String toTranslatedReturnStatement(Map<String, DataTranslation> translationMap, String dbName) {
+        if (translationMap.isEmpty()) {
+            return "return " + dbName + "." + this._name + " ();";
+        } else {
+            String str = null;
+            if (!this._args.isEmpty()) {
+                str = translationMap.get(DataTranslation.KEY_WITH_ARGUMENTS).statement;
+            }
+            else {
+                str = translationMap.get(DataTranslation.KEY_NO_ARGUMENTS).statement;
+            }
+            // user messed something up
+            if (str == null) {
+                return toTranslatedReturnStatement(new HashMap<>(), dbName);
+            }
+
+            StringBuilder args = new StringBuilder();
+            if (!this._args.isEmpty()) {
+                for (int i = 0; i < _args.size(); i++) {
+                    DataField arg = _args.get(i);
+                    args.append(arg._name);
+                    args.append(":");
+                    args.append(arg._name);
+                    if (i != _args.size()-1) {
+                        args.append(", ");
+                    }
+                }
+            }
+
+            str = str.replaceAll(DataTranslation.IS_LIST_RETURN, ""+isSequence());
+            str = str.replaceAll(DataTranslation.QUERY_ARGS, args.toString());
+            str = str.replaceAll(DataTranslation.REPLACE_VAL_QUERY_NAME , _name);
+            return str;
+        }
     }
 
     @Override
@@ -243,7 +301,7 @@ public class DataComplexType {
         if (true) {
             return getName();
         }
-        String ret = (_abstractClass ? "abstract " : "") +  _name + (_derivesFrom == null ? "" : " extends " + _derivesFrom) + "\n";
+        String ret = (_abstractClass ? "abstract " : "") + _name + (_derivesFrom == null ? "" : " extends " + _derivesFrom) + "\n";
         for (DataField df : _fields) {
             ret += " \\===> " + df.getName() + " " + df.getValue();
             ret += "\n";

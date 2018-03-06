@@ -20,13 +20,11 @@ import com.predic8.wsdl.WSDLParser;
 import data.DataComplexType;
 import data.DataEnum;
 import data.DataField;
+import data.DataTranslation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,6 +48,8 @@ public class Parser {
 
     private static Map<String, String> _graphQlTypeMap = new HashMap<>();
     private static Map<String, String> _graphSchemaTypeMap = new HashMap<>();
+
+    private Map<String, DataTranslation> _dataTranslations = new HashMap<>();
 
     private Map<String, DataComplexType> _dataComplexTypeMap         = new HashMap<>();
     private Map<String, DataComplexType> _dataComplexTypeResponseMap = new HashMap<>();
@@ -100,8 +100,32 @@ public class Parser {
         parse(typeSchema);
     }
 
+    private void loadDataTranslation() throws Exception {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("dataTranslation.txt").getFile());
+        try (Scanner scanner = new Scanner(file)) {
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                DataTranslation d = new DataTranslation(line);
+                if (d.key != null) {
+                    this._dataTranslations.put(d.key, d);
+                }
+            }
+
+            scanner.close();
+
+        } catch (IOException e) {
+            _Logger.error("Error loading dataTranslations.txt file, no translations will be made", e);
+        }
+    }
+
     private void parse(boolean typeSchema) {
         try {
+            if (typeSchema) {
+                this.loadDataTranslation();
+            }
+
             _parser = new WSDLParser();
             Definitions defs;
             if (_wsdlFile != null) {
@@ -392,13 +416,11 @@ public class Parser {
             // clear dupes
             allTypes = new ArrayList<>(new LinkedHashSet<>(allTypes));
 
-            // do mappings (not for typeschema)
-            if (!typeSchema) {
-                for (DataComplexType dct : allTypes) {
-                    if (dct.getDerivesFrom() != null) {
-                        // get all fields from the derived class, nested
-                        this.mapDerivedFieldsOntoComplexType(dct, allTypes);
-                    }
+            // do mappings (also for typeschema as each type has to have the actual fields of what it implements, like a real interface class)
+            for (DataComplexType dct : allTypes) {
+                if (dct.getDerivesFrom() != null) {
+                    // get all fields from the derived class, nested
+                    this.mapDerivedFieldsOntoComplexType(dct, allTypes, typeSchema);
                 }
             }
 
@@ -406,6 +428,10 @@ public class Parser {
             linkTypes(allTypes);
 
             if (typeSchema) {
+
+                // get rid of empty interfaces and other stuff
+                this.doTypeSchemaCleanup(allTypes);
+
                 // sort the types, order doesn't matter for type schema
                 allTypes.sort(Comparator.comparing(DataComplexType::getName));
 
@@ -434,6 +460,16 @@ public class Parser {
             if (typeSchema) {
                 List<DataComplexType> nonMods = new ArrayList<>();
                 List<DataComplexType> mods = new ArrayList<>();
+
+                // TODO: NOT WORKING, NEEDS TO ADD ALL DERIVED FIELDS ALL THE WAY UP AS WELL
+                // (array does not contain the abstract stuff!)
+                methodsWithoutResponses.forEach(x -> {
+                    if (x.getDerivesFrom() != null) {
+                        DataComplexType dx = _dataComplexTypeMap.get(x.getDerivesFrom());
+                        x.getFields().addAll(dx.getFields());
+                    }
+                });
+
                 methodsWithoutResponses.forEach(x -> {
                     boolean any = false;
                     for (String mod : _modifyingQueries) {
@@ -450,8 +486,11 @@ public class Parser {
 
                 });
 
+
                 context.put("nonModifyingOperations", nonMods);
                 context.put("modifyingOperations", mods);
+
+                context.put("dataTranslations", this._dataTranslations);
             }
             else {
                 context.put("operations", methodsWithoutResponses);
@@ -615,7 +654,7 @@ public class Parser {
         }
     }
 
-    private void mapDerivedFieldsOntoComplexType(DataComplexType data, List<DataComplexType> all) {
+    private void mapDerivedFieldsOntoComplexType(DataComplexType data, List<DataComplexType> all, boolean typeSchema) throws Exception {
         Map<String, DataComplexType> map = new HashMap<>();
         for (DataComplexType d : all) {
             map.put(d.getName(), d);
@@ -624,23 +663,75 @@ public class Parser {
         if (map.containsKey(data.getDerivesFrom())) {
             DataComplexType dct = map.get(data.getDerivesFrom());
             _Logger.trace("ComplexType '{}' derives from '{}', mapping fields from it to parent", data.getName(), dct.getDerivesFrom());
+
+            if (typeSchema) {
+                List<DataField> recurse = new ArrayList<>();
+                getAllDataFieldsRecursively(dct, map, recurse, typeSchema);
+                for (DataField clone : recurse) {
+                    data.addField(clone, true);
+                }
+                return;
+            }
+
             List<DataField> cloned = new ArrayList<>();
             for (DataField df : dct.getFields()) {
                 try {
                     DataField clone = (DataField) df.clone();
-                    clone.setNotes("// Derived field from '" + data.getDerivesFrom() + "'");
+                    clone.setNotes((typeSchema ? "#" : "//") + " Derived field from '" + data.getDerivesFrom() + "'");
                     cloned.add(clone);
                 } catch (Exception err) {
                     _Logger.error("Error cloning", err);
                 }
             }
-            data.getFields().addAll(cloned);
+
+            for (DataField clone : cloned) {
+                data.addField(clone, true);
+            }
 
             if (dct.getDerivesFrom() != null) {
                 _Logger.trace("Recursing as the derived from ({} -> {}) derives further...", data.getDerivesFrom(), dct.getDerivesFrom());
-                this.mapDerivedFieldsOntoComplexType(dct, all);
+                this.mapDerivedFieldsOntoComplexType(dct, all, typeSchema);
             }
         }
+    }
+
+    // this is only for Type Schema, as all inherited fields must also be represented on the class, like a real interface, so we fetch all fields from all parents
+    // TODO: Might need dupe check on field names
+    private void getAllDataFieldsRecursively(DataComplexType start, Map<String, DataComplexType> map, List<DataField> populate, boolean typeSchema) throws Exception {
+        for (DataField df : start.getFields()) {
+            DataField clone = (DataField) df.clone();
+            clone.setNotes((typeSchema ? "#" : "//") + " Derived field from '" + start.getDerivesFrom() + "'");
+            populate.add(clone);
+        }
+
+        if (start.getDerivesFrom() != null) {
+            getAllDataFieldsRecursively(map.get(start.getDerivesFrom()), map, populate, typeSchema);
+        }
+    }
+
+    private void doTypeSchemaCleanup(List<DataComplexType> all) {
+        // graphql doesn't support empty interfaces, so if we have any complex types that are abstract and have no fields, that's basically an empty interface. Thus we can't have any class depend on it and we don't want those types at all
+
+        List<DataComplexType> toRemove = new ArrayList<>();
+
+        for (DataComplexType dc : all) {
+            if (dc.isAbstract() && dc.hasNoFields()) {
+                _Logger.warn("Complex Type '" + dc.getName() + "' would become an empty interface - which GraphQL does not allow - thus it will be removed and all dependencies to it will be ignored");
+                toRemove.add(dc);
+            }
+        }
+
+        all.removeAll(toRemove);
+
+        for (DataComplexType outer : all) {
+            for (DataComplexType inner : toRemove) {
+                if (outer.getDerivesFrom() != null && outer.getDerivesFrom().equals(inner.getName())) {
+                    outer.setDerivesFrom(null);
+                }
+            }
+        }
+
+        _Logger.info("Cleaned up Complex Types for Type Schema Generation. " + toRemove.size() + " types were removed");
     }
 
     private static void out(String str) {
