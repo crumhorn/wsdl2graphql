@@ -1,0 +1,2 @@
+noArguments:return db.querySOAP(SourceTypes.REFERENCE_DATA, root.user, '%QUERY_NAME%', %IS_LIST_RETURN%);
+withArguments:return db.querySOAPWithArgs(SourceTypes.REFERENCE_DATA, root.user, '%QUERY_NAME%', {%QUERY_ARGS%});
