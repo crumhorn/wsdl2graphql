@@ -179,7 +179,19 @@ public class Parser {
                             }
 
                             data.setType("new " + _graphQlList + "(" + value + ")");
-                            data.setSchemaType("[" + value + "]");
+
+                            if (typeSchema) {
+                                if ("1".equals(response.getMaxOccurs())) {
+                                    data.setSchemaType(value);
+                                }
+                                else {
+                                    data.setSchemaType("[" + value + "]");
+                                }
+                            }
+                            else {
+                                data.setSchemaType("[" + value + "]");
+                            }
+
                         } else {
                             _Logger.warn("Could not find origin class for complex type '{}', using 'unknownClass' instead. Make sure you change it later!", responseClass);
                             data.setType("unknownClass");
@@ -384,6 +396,13 @@ public class Parser {
 
         if (pe.isNillable()) {
             df.setNillable(true);
+        }
+        else {
+            if (pe.getMinOccurs().equals("0")) {
+                df.setNillable(true);
+            } else {
+                df.setNillable(false);
+            }
         }
 
         // convert type to graphql type if it is one

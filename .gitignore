@@ -1,4 +1,5 @@
 target/
 testFiles/
 *.txt
+!src/main/resources/*.txt
 *.typeSchema
